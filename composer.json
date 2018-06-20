@@ -1,0 +1,66 @@
+{
+    "name": "inpsyde/multilingualpress-language-flags",
+    "description": "Add flags feature to multilingualpress plugin",
+    "type": "wordpress-plugin",
+    "keywords": [
+        "bilingual",
+        "i18n",
+        "international",
+        "internationalization",
+        "l10n",
+        "lang",
+        "language",
+        "localization",
+        "multi",
+        "multilanguage",
+        "multilingual",
+        "multisite",
+        "network",
+        "translation",
+        "wordpress",
+        "wp"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Inpsyde GmbH",
+            "email": "hello@inpsyde.com",
+            "homepage": "https://inpsyde.com",
+            "role": "Company"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/wp-cli/i18n-command"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": "^7.0"
+    },
+    "require-dev": {
+        "brain/monkey": "^2",
+        "inpsyde/php-coding-standards": "^0.13",
+        "mockery/mockery": "~0.9",
+        "phpunit/phpunit": "^6.0",
+        "wp-cli/i18n-command": "dev-master",
+        "squizlabs/php_codesniffer": "~3.2.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Inpsyde\\MultilingualPress\\Flags\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Inpsyde\\MultilingualPress\\Tests\\Unit\\": "tests/php/unit"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.0.x-dev"
+        }
+    }
+}

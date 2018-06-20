@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<ruleset name="MultilingualPress Coding Standard">
+
+    <file>./src</file>
+    <file>./tests/php/unit</file>
+    <file>./tests/codeception/tests</file>
+    <file>./index.php</file>
+    <file>./uninstall.php</file>
+
+    <arg value="sp"/>
+
+    <config name="text_domain" value="multilingualpress"/>
+
+    <rule ref="Inpsyde"/>
+    <rule ref="Inpsyde.CodeQuality.Psr4">
+        <properties>
+            <property
+                    name="psr4"
+                    type="array"
+                    value="Inpsyde\MultilingualPress=>src,Inpsyde\MultilingualPress\Tests\Unit=>tests/php/unit"/>
+            <property
+                name="exclude"
+                type="array"
+                value="System,Acceptance" />
+        </properties>
+    </rule>
+
+</ruleset>

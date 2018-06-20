@@ -1,0 +1,31 @@
+# Composer
+/composer.lock
+/vendor/
+
+# NPM
+.npm
+node_modules/
+npm-debug.log*
+
+# CodeSniffer
+/phpcs.xml
+report-*.txt
+
+# PHPUnit
+/phpunit.xml
+
+# Sass
+.sass-cache
+*.css.map
+
+# Generated files
+/*.zip
+.phan/*
+!.phan/config.php
+/autoload.php
+/languages/*.pot
+
+# Codeception
+tests/codeception/_output/*
+tests/codeception/_data/*
+tests/codeception/tests/*.suite.yml
