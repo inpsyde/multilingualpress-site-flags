@@ -130,20 +130,17 @@ final class ServiceProvider implements BootstrappableServiceProvider
      */
     public function bootstrap(Container $container)
     {
-        $flagSiteSettingsUpdateHandler = $container[ 'FlagSiteSettingsUpdateHandler'];
-        $newSiteSettings = $container['FlagsNewSiteSettings'];
+        if (is_admin()) {
+            $this->bootstrapAdmin($container);
+            is_network_admin() and $this->bootstrapNetworkAdmin($container);
 
-        add_action(
-            SiteSettingsSectionView::ACTION_AFTER . '_mlp-new-site-settings',
-            function ($siteId) use ($newSiteSettings) {
-                $newSiteSettings->renderView((int)$siteId);
-            }
-        );
+            return;
+        }
+    }
 
-        add_action(
-            'wpmu_new_blog',
-            [$container['FlagsSiteSettings'], 'defineInitialSettings']
-        );
+    public function bootstrapAdmin(Container $container)
+    {
+        $flagSiteSettingsUpdateHandler = $container['FlagSiteSettingsUpdateHandler'];
 
         add_action(SiteSettingsSectionView::ACTION_AFTER . '_mlp-site-settings', [
             $container['FlagsSiteSettings'],
@@ -155,6 +152,23 @@ final class ServiceProvider implements BootstrappableServiceProvider
             function () use ($flagSiteSettingsUpdateHandler) {
                 $flagSiteSettingsUpdateHandler->handlePostRequest();
             }
+        );
+    }
+
+    public function bootstrapNetworkAdmin(Container $container)
+    {
+        $newSiteSettings = $container['FlagsNewSiteSettings'];
+
+        add_action(
+            SiteSettingsSectionView::ACTION_AFTER . '_mlp-new-site-settings',
+            function ($siteId) use ($newSiteSettings) {
+                $newSiteSettings->renderView((int)$siteId);
+            }
+        );
+
+        add_action(
+            ParentSiteSettingsUpdater::ACTION_DEFINE_INITIAL_SETTINGS,
+            [$container[Admin\SiteSettingsUpdater::class], 'defineInitialSettings']
         );
     }
 }

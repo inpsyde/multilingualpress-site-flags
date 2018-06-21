@@ -14,12 +14,12 @@ declare(strict_types=1);
 namespace Inpsyde\MultilingualPress\Flags\Core\Admin;
 
 use Inpsyde\MultilingualPress\Framework\Http\Request;
-use Inpsyde\MultilingualPress\Framework\Setting\SettingsUpdatable;
+use Inpsyde\MultilingualPress\Framework\Setting\SiteSettingsUpdatable;
 
 /**
  * Class SiteSettingsUpdater
  */
-final class SiteSettingsUpdater implements SettingsUpdatable
+final class SiteSettingsUpdater implements SiteSettingsUpdatable
 {
     /**
      * @var SiteSettingsRepository
@@ -42,7 +42,15 @@ final class SiteSettingsUpdater implements SettingsUpdatable
     }
 
     /**
-     * @param int $siteId
+     * @inheritdoc
+     */
+    public function defineInitialSettings(int $siteId)
+    {
+        $this->updateSettings($siteId);
+    }
+
+    /**
+     * @inheritdoc
      */
     public function updateSettings(int $siteId)
     {
