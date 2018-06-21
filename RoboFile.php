@@ -85,7 +85,7 @@ class RoboFile extends Robo\Tasks
             }
         }
 
-        $success = $this->taskScss([$from . 'admin.scss' => $to . 'admin.css'])
+        $success = $this->taskScss([$from . 'frontend.scss' => $to . 'frontend.css'])
             ->setImportPaths($from)
             ->setFormatter(ScssPhp\Formatter\Expanded::class)
             ->run();
@@ -94,7 +94,7 @@ class RoboFile extends Robo\Tasks
             return $success;
         }
 
-        return $this->taskScss([$from . 'admin.scss' => $to . 'admin.min.css'])
+        return $this->taskScss([$from . 'frontend.scss' => $to . 'frontend.min.css'])
             ->setFormatter(ScssPhp\Formatter\Crunched::class)
             ->setImportPaths($from)
             ->run();
@@ -129,8 +129,8 @@ class RoboFile extends Robo\Tasks
             ->addDir('multilingualpress-site-flags/languages', 'languages')
             ->addFile('multilingualpress-site-flags/LICENSE', 'LICENSE')
             ->addFile(
-                'multilingualpress-site-flags/multilingual-site-flags.php',
-                'multilingual-site-flags.php'
+                'multilingualpress-site-flags/multilingualpress-site-flags.php',
+                'multilingualpress-site-flags.php'
             )
             ->addFile('multilingualpress-site-flags/autoload.php', 'autoload.php')
             ->run();
@@ -181,24 +181,14 @@ class RoboFile extends Robo\Tasks
     {
         $autoload = <<<'PHP'
 <?php
-namespace Inpsyde\MultilingualPress;
+namespace Inpsyde\MultilingualPress\Flags;
 
 const AUTOLOAD_MAP = [
 PHP;
         $autoload .= "\n";
-        foreach ($this->dirFiles('framework') as $file) {
+        foreach ($this->dirFiles('src') as $file) {
             $file = str_replace('\\', '/', $file[0]);
-            $autoload .= $this->classFromFile($file, 'framework');
-        }
-
-        foreach ($this->dirFiles('modules') as $file) {
-            $file = str_replace('\\', '/', $file[0]);
-            $autoload .= $this->classFromFile($file, 'modules');
-        }
-
-        foreach ($this->dirFiles('multilingualpress') as $file) {
-            $file = str_replace('\\', '/', $file[0]);
-            $autoload .= $this->classFromFile($file, 'multilingualpress');
+            $autoload .= $this->classFromFile($file);
         }
 
         $autoload .= <<<'PHP'
@@ -211,11 +201,6 @@ function autoloadClasses($class) {
 spl_autoload_register(__NAMESPACE__ . '\\autoloadClasses');
 PHP;
         $autoload .= "\n\n";
-        foreach (glob(__DIR__ . '/src/inc/*.php') as $file) {
-            $file = str_replace('\\', '/', $file);
-            $parts = explode('src/inc/', $file, 2);
-            $autoload .= "require_once __DIR__ . '/src/inc/{$parts[1]}';\n";
-        }
 
         return "{$autoload}\n";
     }
@@ -227,7 +212,7 @@ PHP;
     private function dirFiles(string $dir): \Traversable
     {
         return new RegexIterator(
-            new RecursiveIteratorIterator(new RecursiveDirectoryIterator(__DIR__ . "/src/{$dir}/")),
+            new RecursiveIteratorIterator(new RecursiveDirectoryIterator(__DIR__ . "/{$dir}/")),
             '/^.+\.php$/i',
             RecursiveRegexIterator::GET_MATCH
         );
@@ -235,18 +220,13 @@ PHP;
 
     /**
      * @param string $file
-     * @param string $base
      * @return string
      */
-    private function classFromFile(string $file, string $base): string
+    private function classFromFile(string $file): string
     {
-        $parts = explode("src/{$base}/", $file, 2);
-        $prefix = $base === 'multilingualpress' ? '' : ucfirst($base) . '\\';
-        if ($base === 'modules') {
-            $prefix = str_replace('Modules\\', 'Module\\', $prefix);
-        }
-        $name = $prefix . str_replace('/', '\\', substr($parts[1], 0, -4));
-        $name .= "::class => '/src/{$base}/{$parts[1]}',\n";
+        $parts = explode("src/", $file, 2);
+        $name = str_replace('/', '\\', substr($parts[1], 0, -4));
+        $name .= "::class => '/src/{$parts[1]}',\n";
 
         return "    {$name}";
     }

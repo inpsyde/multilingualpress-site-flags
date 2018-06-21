@@ -91,6 +91,7 @@ add_action(
     'multilingualpress.add_service_providers',
     function (ServiceProvidersCollection $providers) {
         $providers
+            ->add(new Asset\ServiceProvider())
             ->add(new Core\ServiceProvider())
             ->add(new Flag\ServiceProvider())
             ->add(new NavMenu\ServiceProvider());
