@@ -1,7 +1,6 @@
 <?php # -*- coding: utf-8 -*-
 
 use Leafo\ScssPhp;
-use WP_CLI\I18n\WordPressCodeExtractor;
 
 /** @noinspection PhpUndefinedClassInspection */
 class RoboFile extends Robo\Tasks
