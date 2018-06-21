@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Inpsyde\MultilingualPress\Flags\Asset;
 
 use Inpsyde\MultilingualPress\Asset\AssetFactory;
-use Inpsyde\MultilingualPress\Core\Locations;
 use Inpsyde\MultilingualPress\Framework\Asset\AssetManager;
 use Inpsyde\MultilingualPress\Framework\Service\BootstrappableServiceProvider;
 use Inpsyde\MultilingualPress\Framework\Service\Container;
@@ -30,16 +29,9 @@ class ServiceProvider implements BootstrappableServiceProvider
     public function register(Container $container)
     {
         $container->share(
-            AssetFactory::class,
+            'FlagsAssetFactory',
             function (Container $container): AssetFactory {
-                return new AssetFactory($container[Locations::class]);
-            }
-        );
-
-        $container->share(
-            AssetManager::class,
-            function (): AssetManager {
-                return new AssetManager();
+                return new AssetFactory($container['FlagsLocations']);
             }
         );
     }
@@ -49,7 +41,7 @@ class ServiceProvider implements BootstrappableServiceProvider
      */
     public function bootstrap(Container $container)
     {
-        $assetFactory = $container[AssetFactory::class];
+        $assetFactory = $container['FlagsAssetFactory'];
 
         $container[AssetManager::class]
             ->registerStyle(

@@ -54,7 +54,7 @@ final class ServiceProvider implements BootstrappableServiceProvider
     private function registerCore(Container $container)
     {
         $container->share(
-            Locations::class,
+            'FlagsLocations',
             function (Container $container): Locations {
 
                 $properties = $container[PluginProperties::class];
