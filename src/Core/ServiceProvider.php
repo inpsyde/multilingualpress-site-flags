@@ -134,10 +134,15 @@ final class ServiceProvider implements BootstrappableServiceProvider
         $newSiteSettings = $container['FlagsNewSiteSettings'];
 
         add_action(
-            'network_site_new_form',
+            SiteSettingsSectionView::ACTION_AFTER . '_mlp-new-site-settings',
             function ($siteId) use ($newSiteSettings) {
-                (new SiteSettingsSectionView($newSiteSettings))->render((int)$siteId);
+                $newSiteSettings->renderView((int)$siteId);
             }
+        );
+
+        add_action(
+            'wpmu_new_blog',
+            [$container['FlagsSiteSettings'], 'defineInitialSettings']
         );
 
         add_action(SiteSettingsSectionView::ACTION_AFTER . '_mlp-site-settings', [
