@@ -17,6 +17,9 @@ use Inpsyde\MultilingualPress\Core\Admin\SiteSettings as ParentSiteSettings;
 use Inpsyde\MultilingualPress\Core\Admin\NewSiteSettings as ParentNewSiteSettings;
 use Inpsyde\MultilingualPress\Core\Admin\SiteSettingsUpdater as ParentSiteSettingsUpdater;
 use Inpsyde\MultilingualPress\Core\Admin\SiteSettingsUpdateRequestHandler as ParentSiteSiteSettingsUpdateRequestHandler;
+use Inpsyde\MultilingualPress\Core\Locations;
+use Inpsyde\MultilingualPress\Flags\PluginProperties;
+use Inpsyde\MultilingualPress\Framework\PluginProperties as ParentPluginProperties;
 use Inpsyde\MultilingualPress\Framework\Asset\AssetManager;
 use Inpsyde\MultilingualPress\Framework\Factory\NonceFactory;
 use Inpsyde\MultilingualPress\Framework\Http\ServerRequest;
@@ -39,7 +42,35 @@ final class ServiceProvider implements BootstrappableServiceProvider
      */
     public function register(Container $container)
     {
+        $this->registerCore($container);
         $this->registerAdmin($container);
+
+        $container->shareValue(
+            PluginProperties::class,
+            new ParentPluginProperties(dirname(__DIR__))
+        );
+    }
+
+    private function registerCore(Container $container)
+    {
+        $container->share(
+            Locations::class,
+            function (Container $container): Locations {
+
+                $properties = $container[PluginProperties::class];
+                $pluginPath = rtrim($properties->dirPath(), '/');
+                $pluginUrl = rtrim($properties->dirUrl(), '/');
+                $assetsPath = "{$pluginPath}/public";
+                $assetsUrl = "{$pluginUrl}/public";
+
+                $locations = new Locations();
+
+                return $locations
+                    ->add('plugin', $pluginPath, $pluginUrl)
+                    ->add('css', "{$assetsPath}/css", "{$assetsUrl}/css")
+                    ->add('js', "{$assetsPath}/js", "{$assetsUrl}/js");
+            }
+        );
     }
 
     /**
@@ -136,8 +167,13 @@ final class ServiceProvider implements BootstrappableServiceProvider
 
             return;
         }
+
+        $this->bootstrapFrontend($container);
     }
 
+    /**
+     * @param Container $container
+     */
     public function bootstrapAdmin(Container $container)
     {
         $flagSiteSettingsUpdateHandler = $container['FlagSiteSettingsUpdateHandler'];
@@ -155,6 +191,17 @@ final class ServiceProvider implements BootstrappableServiceProvider
         );
     }
 
+    /**
+     * @param Container $container
+     */
+    public function bootstrapFrontend(Container $container)
+    {
+        $container[AssetManager::class]->enqueueStyle('multilingualpress-site-flags-front');
+    }
+
+    /**
+     * @param Container $container
+     */
     public function bootstrapNetworkAdmin(Container $container)
     {
         $newSiteSettings = $container['FlagsNewSiteSettings'];
