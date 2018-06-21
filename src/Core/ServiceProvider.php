@@ -131,6 +131,14 @@ final class ServiceProvider implements BootstrappableServiceProvider
     public function bootstrap(Container $container)
     {
         $flagSiteSettingsUpdateHandler = $container[ 'FlagSiteSettingsUpdateHandler'];
+        $newSiteSettings = $container['FlagsNewSiteSettings'];
+
+        add_action(
+            'network_site_new_form',
+            function ($siteId) use ($newSiteSettings) {
+                (new SiteSettingsSectionView($newSiteSettings))->render((int)$siteId);
+            }
+        );
 
         add_action(SiteSettingsSectionView::ACTION_AFTER . '_mlp-site-settings', [
             $container['FlagsSiteSettings'],
