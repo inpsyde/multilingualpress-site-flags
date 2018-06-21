@@ -54,7 +54,7 @@ function autoload()
     if (is_bool($done)) {
         return $done;
     }
-    if (class_exists(Flag::class)) {
+    if (class_exists(Flag\Flag::class)) {
         $done = true;
 
         return true;
