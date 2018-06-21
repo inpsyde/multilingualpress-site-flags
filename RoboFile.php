@@ -32,6 +32,7 @@ class RoboFile extends Robo\Tasks
         $opts = array_merge(self::DEFAULT_OPTS, $opts);
 
         $methods = [
+            'tests',
             'cleanPublic',
             'buildAssets',
         ];
@@ -52,6 +53,18 @@ class RoboFile extends Robo\Tasks
         restore_error_handler();
 
         return $result;
+    }
+
+    /**
+     * @return null|\Robo\Result
+     * @throws \Robo\Exception\TaskException
+     */
+    public function tests()
+    {
+        return $this->taskExecStack()
+            ->stopOnFail()
+            ->exec($this->formatBinCommand('phpcs'))
+            ->run();
     }
 
     /**
@@ -230,6 +243,22 @@ PHP;
         $name .= "::class => '/src/{$parts[1]}',\n";
 
         return "    {$name}";
+    }
+
+    /**
+     * @param string $command
+     * @param string $args
+     * @return string
+     */
+    private function formatBinCommand(string $command, string $args = ''): string
+    {
+        $isWin = defined('PHP_WINDOWS_VERSION_BUILD');
+
+        $prefix = $isWin ? getcwd() . '/' : './';
+        $suffix = $isWin ? '.bat' : '';
+        $path = str_replace('\\/', DIRECTORY_SEPARATOR, "{$prefix}vendor/bin/{$command}{$suffix}");
+
+        return rtrim("{$path} {$args}");
     }
 }
 

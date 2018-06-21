@@ -2,10 +2,7 @@
 <ruleset name="MultilingualPress Coding Standard">
 
     <file>./src</file>
-    <file>./tests/php/unit</file>
-    <file>./tests/codeception/tests</file>
-    <file>./index.php</file>
-    <file>./uninstall.php</file>
+    <file>./multilingualpress-site-flags.php</file>
 
     <arg value="sp"/>
 
