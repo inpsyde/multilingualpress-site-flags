@@ -23,7 +23,6 @@ report-*.txt
 .phan/*
 !.phan/config.php
 /autoload.php
-/languages/*.pot
 
 # Codeception
 tests/codeception/_output/*
