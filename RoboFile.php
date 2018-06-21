@@ -126,6 +126,7 @@ class RoboFile extends Robo\Tasks
         $result = $this->taskPack("multilingualpress-site-flags-{$releaseNum}.zip")
             ->addDir('multilingualpress-site-flags/src', 'src')
             ->addDir('multilingualpress-site-flags/public/css', 'public/css')
+            ->addDir('multilingualpress-site-flags/resources/images', 'resources/images')
             ->addDir('multilingualpress-site-flags/languages', 'languages')
             ->addFile('multilingualpress-site-flags/LICENSE', 'LICENSE')
             ->addFile(
