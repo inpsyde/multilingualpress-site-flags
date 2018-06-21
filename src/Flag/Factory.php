@@ -50,7 +50,7 @@ class Factory
             $flag = new Raster($siteId, $language, $url);
         }
         if (!$flag) {
-            $flag = new Svg($siteId, $language, $this->flag($language));
+            $flag = new Raster($siteId, $language, $this->flag($language));
         }
 
         return $flag;

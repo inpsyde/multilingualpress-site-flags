@@ -62,15 +62,6 @@ final class Svg implements Flag
      */
     public function markup(): string
     {
-        $alt = sprintf(
-            __('%s language flag', 'multilingualpress'),
-            $this->language->nativeName()
-        );
-
-        return sprintf(
-            '<img src="%1$s" alt="%2$s" />',
-            esc_url($this->url()),
-            esc_attr($alt)
-        );
+        return '';
     }
 }
