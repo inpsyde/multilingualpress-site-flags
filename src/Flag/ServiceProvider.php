@@ -15,9 +15,9 @@ namespace Inpsyde\MultilingualPress\Flags\Flag;
 use Inpsyde\MultilingualPress\Flags\Core\Admin;
 use Inpsyde\MultilingualPress\Flags\Flag\Factory as FlagFactory;
 use Inpsyde\MultilingualPress\Framework\Service\Container;
-use Inpsyde\MultilingualPress\Framework\Service\ServiceProvider as FrameworkServiceProvider;
+use Inpsyde\MultilingualPress\Framework\Service\ServiceProvider as ParentServiceProvider;
 
-final class ServiceProvider implements FrameworkServiceProvider
+final class ServiceProvider implements ParentServiceProvider
 {
     /**
      * @inheritdoc

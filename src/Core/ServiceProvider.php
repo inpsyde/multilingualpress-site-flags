@@ -12,18 +12,20 @@ declare(strict_types=1);
 
 namespace Inpsyde\MultilingualPress\Flags\Core;
 
-use Inpsyde\MultilingualPress\Core\Admin\SiteSettingsRepository as FrameworkSiteSettingsRepository;
-use Inpsyde\MultilingualPress\Core\Admin\SiteSettings as FrameworkSiteSettings;
-use \Inpsyde\MultilingualPress\Core\Admin\SiteSettingsUpdater as FrameworkSiteSettingsUpdater;
-use Inpsyde\MultilingualPress\Core\Admin\SiteSettingsUpdateRequestHandler as FrameworkSiteSiteSettingsUpdateRequestHandler;
-use Inpsyde\MultilingualPress\Flags\Core\Admin\SiteFlagUrlSetting;
-use Inpsyde\MultilingualPress\Flags\Core\Admin\SiteMenuLanguageStyleSetting;
+use Inpsyde\MultilingualPress\Core\Admin\SiteSettingsRepository as ParentSiteSettingsRepository;
+use Inpsyde\MultilingualPress\Core\Admin\SiteSettings as ParentSiteSettings;
+use Inpsyde\MultilingualPress\Core\Admin\NewSiteSettings as ParentNewSiteSettings;
+use Inpsyde\MultilingualPress\Core\Admin\SiteSettingsUpdater as ParentSiteSettingsUpdater;
+use Inpsyde\MultilingualPress\Core\Admin\SiteSettingsUpdateRequestHandler as ParentSiteSiteSettingsUpdateRequestHandler;
+use Inpsyde\MultilingualPress\Framework\Asset\AssetManager;
 use Inpsyde\MultilingualPress\Framework\Factory\NonceFactory;
 use Inpsyde\MultilingualPress\Framework\Http\ServerRequest;
 use Inpsyde\MultilingualPress\Framework\Service\BootstrappableServiceProvider;
 use Inpsyde\MultilingualPress\Framework\Service\Container;
 use Inpsyde\MultilingualPress\Framework\Setting\Site\SiteSettingMultiView;
 use Inpsyde\MultilingualPress\Framework\Setting\Site\SiteSettingsSectionView;
+use Inpsyde\MultilingualPress\Flags\Core\Admin\SiteFlagUrlSetting;
+use Inpsyde\MultilingualPress\Flags\Core\Admin\SiteMenuLanguageStyleSetting;
 
 /**
  * Service provider for all Core objects.
@@ -49,7 +51,7 @@ final class ServiceProvider implements BootstrappableServiceProvider
             Admin\SiteSettingsRepository::class,
             function (Container $container): Admin\SiteSettingsRepository {
                 return new Admin\SiteSettingsRepository(
-                    $container[FrameworkSiteSettingsRepository::class]
+                    $container[ParentSiteSettingsRepository::class]
                 );
             }
         );
@@ -74,14 +76,29 @@ final class ServiceProvider implements BootstrappableServiceProvider
 
         $container->addService(
             'FlagsSiteSettings',
-            function (Container $container): FrameworkSiteSettings {
-                return new FrameworkSiteSettings(
+            function (Container $container): ParentSiteSettings {
+                return new ParentSiteSettings(
                     SiteSettingMultiView::fromViewModels(
                         [
                             $container[Admin\SiteFlagUrlSetting::class],
                             $container[Admin\SiteMenuLanguageStyleSetting::class],
                         ]
                     )
+                );
+            }
+        );
+
+        $container->addService(
+            'FlagsNewSiteSettings',
+            function (Container $container): ParentNewSiteSettings {
+                return new ParentNewSiteSettings(
+                    SiteSettingMultiView::fromViewModels(
+                        [
+                            $container[Admin\SiteFlagUrlSetting::class],
+                            $container[Admin\SiteMenuLanguageStyleSetting::class],
+                        ]
+                    ),
+                    $container[AssetManager::class]
                 );
             }
         );
@@ -98,8 +115,8 @@ final class ServiceProvider implements BootstrappableServiceProvider
 
         $container->addService(
             'FlagSiteSettingsUpdateHandler',
-            function (Container $container): FrameworkSiteSiteSettingsUpdateRequestHandler {
-                return new FrameworkSiteSiteSettingsUpdateRequestHandler(
+            function (Container $container): ParentSiteSiteSettingsUpdateRequestHandler {
+                return new ParentSiteSiteSettingsUpdateRequestHandler(
                     $container[Admin\SiteSettingsUpdater::class],
                     $container[ServerRequest::class],
                     $container[NonceFactory::class]->create(['save_site_settings'])
@@ -121,7 +138,7 @@ final class ServiceProvider implements BootstrappableServiceProvider
         ]);
 
         add_action(
-            FrameworkSiteSettingsUpdater::ACTION_UPDATE_SETTINGS,
+            ParentSiteSettingsUpdater::ACTION_UPDATE_SETTINGS,
             function () use ($flagSiteSettingsUpdateHandler) {
                 $flagSiteSettingsUpdateHandler->handlePostRequest();
             }
