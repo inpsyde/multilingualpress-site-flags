@@ -61,7 +61,7 @@ class SiteSettingsRepository
         $siteId = $siteId ?: get_current_blog_id();
 
         $settings = $this->allSettings();
-        $menuFlagStyle = $settings[$siteId][self::KEY_SITE_MENU_LANGUAGE_STYLE] ?? '';
+        $menuFlagStyle = $settings[$siteId][self::KEY_SITE_MENU_LANGUAGE_STYLE] ?? SiteMenuLanguageStyleSetting::FLAG_AND_LANGUAGES;
 
         return $menuFlagStyle;
     }
