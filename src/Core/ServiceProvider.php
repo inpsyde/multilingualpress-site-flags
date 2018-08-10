@@ -19,7 +19,6 @@ use Inpsyde\MultilingualPress\Core\Admin\SiteSettingsUpdater as ParentSiteSettin
 use Inpsyde\MultilingualPress\Core\Admin\SiteSettingsUpdateRequestHandler as ParentSiteSiteSettingsUpdateRequestHandler;
 use Inpsyde\MultilingualPress\Core\Locations;
 use Inpsyde\MultilingualPress\Flags\PluginProperties;
-use Inpsyde\MultilingualPress\Framework\PluginProperties as ParentPluginProperties;
 use Inpsyde\MultilingualPress\Framework\Asset\AssetManager;
 use Inpsyde\MultilingualPress\Framework\Factory\NonceFactory;
 use Inpsyde\MultilingualPress\Framework\Http\ServerRequest;
@@ -47,7 +46,7 @@ final class ServiceProvider implements BootstrappableServiceProvider
 
         $container->shareValue(
             PluginProperties::class,
-            new ParentPluginProperties(dirname(__DIR__))
+            new PluginProperties(dirname(__DIR__))
         );
     }
 
