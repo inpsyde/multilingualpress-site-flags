@@ -51,6 +51,9 @@ final class ServiceProvider implements BootstrappableServiceProvider
         );
     }
 
+    /**
+     * @param Container $container
+     */
     private function registerCore(Container $container)
     {
         $container->share(
@@ -114,7 +117,8 @@ final class ServiceProvider implements BootstrappableServiceProvider
                             $container[Admin\SiteFlagUrlSetting::class],
                             $container[Admin\SiteMenuLanguageStyleSetting::class],
                         ]
-                    )
+                    ),
+                    $container[AssetManager::class]
                 );
             }
         );
