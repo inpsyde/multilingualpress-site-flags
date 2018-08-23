@@ -34,18 +34,30 @@ use Inpsyde\MultilingualPress\Framework\Service\ServiceProvidersCollection;
 defined('ABSPATH') or die();
 
 if (version_compare(PHP_VERSION, '7', '<')) {
-    wp_die(
-        esc_html__(
-            'MultilingualPress Flags requires at least PHP version 7.',
-            'multilingualpress'
-        )
-        . '<br>' .
-        esc_html__(
-            'Please ask your server administrator to update your environment to PHP version 7.',
-            'multilingualpress'
-        ),
-        esc_html__('MultilingualPress Flags Activation', 'multilingualpress')
-    );
+    $hooks = [
+        'admin_notices',
+        'network_admin_notices',
+    ];
+    foreach ($hooks as $hook) {
+        add_action($hook, function () {
+            $message = __(
+                'MultilingualPress Flags requires at least PHP version 7. <br />Please ask your server administrator to update your environment to PHP version 7.',
+                'multilingualpress'
+            );
+
+            printf(
+                '<div class="notice notice-error"><span class="notice-title">%1$s</span><p>%2$s</p></div>',
+                esc_html__(
+                    'The plugin MultilingualPress Flags has been deactivated',
+                    'multilingualpress'
+                ),
+                wp_kses($message, ['br' => true])
+            );
+
+            deactivate_plugins(plugin_basename(__FILE__));
+        });
+    }
+    return;
 }
 
 function autoload()
