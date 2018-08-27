@@ -190,7 +190,8 @@ final class ServiceProvider implements BootstrappableServiceProvider
             ParentSiteSettingsUpdater::ACTION_UPDATE_SETTINGS,
             function () use ($flagSiteSettingsUpdateHandler) {
                 $flagSiteSettingsUpdateHandler->handlePostRequest();
-            }
+            },
+            20
         );
     }
 
