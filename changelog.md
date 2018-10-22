@@ -1,4 +1,8 @@
-= 1.0.2 - 18/09/05
+= 1.1.0 - 18/10/22 =
+
+* Add: Flags for post and terms table lists
+
+= 1.0.2 - 18/09/05 =
 
 * Fix: Wrong gif name for hindi flag
 

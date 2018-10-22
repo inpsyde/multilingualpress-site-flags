@@ -106,7 +106,7 @@ add_action(
             ->add(new Asset\ServiceProvider())
             ->add(new Core\ServiceProvider())
             ->add(new Flag\ServiceProvider())
-            ->add(new NavMenu\ServiceProvider());
+            ->add(new ServiceProvider());
     },
     0
 );
