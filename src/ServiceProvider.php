@@ -1,6 +1,6 @@
 <?php # -*- coding: utf-8 -*-
 /*
- * This file is part of the MultilingualPress package.
+ * This file is part of the MultilingualPress Site Flag package.
  *
  * (c) Inpsyde GmbH
  *
@@ -10,12 +10,13 @@
 
 declare(strict_types=1);
 
-namespace Inpsyde\MultilingualPress\Flags\NavMenu;
+namespace Inpsyde\MultilingualPress\Flags;
 
 use Inpsyde\MultilingualPress\Flags\Core\Admin\SiteSettingsRepository;
 use Inpsyde\MultilingualPress\Flags\Flag\Factory as FlagFactory;
 use Inpsyde\MultilingualPress\Framework\Service\BootstrappableServiceProvider;
 use Inpsyde\MultilingualPress\Framework\Service\Container;
+use Inpsyde\MultilingualPress\TranslationUi\Post\TableList;
 
 /**
  * Class ServiceProvider
@@ -28,9 +29,9 @@ final class ServiceProvider implements BootstrappableServiceProvider
     public function register(Container $container)
     {
         $container->addService(
-            NavMenuLanguageStyleFilter::class,
-            function (Container $container): NavMenuLanguageStyleFilter {
-                return new NavMenuLanguageStyleFilter(
+            FlagFilter::class,
+            function (Container $container): FlagFilter {
+                return new FlagFilter(
                     $container[SiteSettingsRepository::class],
                     $container[FlagFactory::class]
                 );
@@ -43,9 +44,12 @@ final class ServiceProvider implements BootstrappableServiceProvider
      */
     public function bootstrap(Container $container)
     {
+        $flagFilter = $container[FlagFilter::class];
+
+        add_filter('nav_menu_item_title', [$flagFilter, 'navMenuItems'], 10, 2);
         add_filter(
-            'nav_menu_item_title',
-            [$container[NavMenuLanguageStyleFilter::class], 'filterItem'],
+            TableList::FILTER_SITE_LANGUAGE_TAG,
+            [$flagFilter, 'tableListPostsRelations'],
             10,
             2
         );
