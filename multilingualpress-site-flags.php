@@ -13,7 +13,7 @@
  * Description: Add flags feature to multilingualpress plugin.
  * Author: Inpsyde GmbH
  * Author URI: https://inpsyde.com
- * Version: 1.0.2
+ * Version: 1.1.0
  * Text Domain: multilingualpress
  * Domain Path: /languages/
  * License: MIT

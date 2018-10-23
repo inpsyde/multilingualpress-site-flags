@@ -1,4 +1,4 @@
-= 1.1.0 - 18/10/22 =
+= 1.1.0 - 18/10/23 =
 
 * Add: Flags for post and terms table lists
 
