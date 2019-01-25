@@ -30,8 +30,6 @@ use Inpsyde\MultilingualPress\Flags\Core\Admin\SiteMenuLanguageStyleSetting;
 
 /**
  * Service provider for all Core objects.
- *
- * phpcs:disable Inpsyde.CodeQuality.FunctionLength.TooLong
  */
 final class ServiceProvider implements BootstrappableServiceProvider
 {
@@ -76,9 +74,13 @@ final class ServiceProvider implements BootstrappableServiceProvider
 
     /**
      * @inheritdoc
+     *
+     * phpcs:disable Inpsyde.CodeQuality.FunctionLength.TooLong
      */
     private function registerAdmin(Container $container)
     {
+        // phpcs:enable
+
         $container->share(
             Admin\SiteSettingsRepository::class,
             function (Container $container): Admin\SiteSettingsRepository {
