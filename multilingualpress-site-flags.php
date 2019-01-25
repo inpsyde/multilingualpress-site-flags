@@ -11,7 +11,7 @@
  * @wordpress-plugin
  * Plugin Name: MultilingualPress Site Flags
  * Plugin URI: https://wordpress.org/plugins/multilingualpress/
- * Description: Add flags feature to multilingualpress plugin.
+ * Description: Add flags to MultilingualPress plugin
  * Author: Inpsyde GmbH
  * Author URI: https://inpsyde.com
  * Version: 1.1.1
