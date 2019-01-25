@@ -31,11 +31,9 @@ class SiteSettingsRepository
     public function siteFlagUrl(int $siteId = null): string
     {
         $siteId = $siteId ?: get_current_blog_id();
-
         $settings = $this->allSettings();
-        $flagUrl = $settings[$siteId][self::KEY_SITE_FLAG_URL] ?? '';
 
-        return $flagUrl;
+        return $settings[$siteId][self::KEY_SITE_FLAG_URL] ?? '';
     }
 
     /**

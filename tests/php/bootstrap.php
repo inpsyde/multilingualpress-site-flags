@@ -1,7 +1,7 @@
 <?php # -*- coding: utf-8 -*-
-$vendor = dirname(dirname(__DIR__)) . '/vendor/';
+$vendor = dirname(__DIR__, 2) . '/vendor/';
 if (!file_exists($vendor . 'autoload.php')) {
-    die("Please install via Composer before running tests.");
+    die('Please install via Composer before running tests.');
 }
 
 require_once $vendor . 'brain/monkey/inc/patchwork-loader.php';

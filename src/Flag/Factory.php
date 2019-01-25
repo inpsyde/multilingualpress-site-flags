@@ -42,36 +42,26 @@ class Factory
      */
     public function create(int $siteId): Flag
     {
-        $flag = null;
         $language = languageByTag(siteLanguageTag($siteId));
         $url = $this->flagUrlBySetting($siteId);
 
-        if ($url) {
-            $flag = new Raster($siteId, $language, $url);
-        }
-        if (!$flag) {
-            $flag = new Raster($siteId, $language, $this->flag($language));
-        }
-
-        return $flag;
+        return new Raster($language, $url ?: $this->flag($language));
     }
 
     /**
      * @param int $siteId
      * @return string
      */
-    private function flagUrlBySetting(int $siteId)
+    private function flagUrlBySetting(int $siteId): string
     {
-        $siteFlagUrl = $this->settingsRepository->siteFlagUrl($siteId);
-
-        return $siteFlagUrl;
+        return $this->settingsRepository->siteFlagUrl($siteId);
     }
 
     /**
      * @param Language $language
      * @return string
      */
-    private function flag(Language $language)
+    private function flag(Language $language): string
     {
         $languageCode = $language->isoCode();
         $siteFlagUrl = plugin_dir_url(dirname(__DIR__))

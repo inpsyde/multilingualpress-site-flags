@@ -76,7 +76,7 @@ final class SiteMenuLanguageStyleSetting implements SiteSettingViewModel
     /**
      * @return array
      */
-    private static function options()
+    private static function options(): array
     {
         return [
             self::FLAG_AND_LANGUAGES => __('Flags and Languages', 'multilingualpress'),

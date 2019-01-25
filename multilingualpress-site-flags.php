@@ -75,6 +75,7 @@ defined('ABSPATH') or die();
             return true;
         }
         if (is_readable(__DIR__ . '/autoload.php')) {
+            /** @noinspection PhpIncludeInspection */
             require_once __DIR__ . '/autoload.php';
             $done = true;
 

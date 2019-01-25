@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace Inpsyde\MultilingualPress\Flags\Core;
 
-use Inpsyde\MultilingualPress\Core\Admin\SiteSettingsRepository as ParentSiteSettingsRepository;
 use Inpsyde\MultilingualPress\Core\Admin\SiteSettings as ParentSiteSettings;
 use Inpsyde\MultilingualPress\Core\Admin\NewSiteSettings as ParentNewSiteSettings;
 use Inpsyde\MultilingualPress\Core\Admin\SiteSettingsUpdater as ParentSiteSettingsUpdater;
@@ -83,9 +82,7 @@ final class ServiceProvider implements BootstrappableServiceProvider
         $container->share(
             Admin\SiteSettingsRepository::class,
             function (Container $container): Admin\SiteSettingsRepository {
-                return new Admin\SiteSettingsRepository(
-                    $container[ParentSiteSettingsRepository::class]
-                );
+                return new Admin\SiteSettingsRepository();
             }
         );
 

@@ -22,11 +22,6 @@ use Inpsyde\MultilingualPress\Framework\Language\Language;
 final class Raster implements Flag
 {
     /**
-     * @var int
-     */
-    private $siteId;
-
-    /**
      * @var Language
      */
     private $language;
@@ -38,13 +33,11 @@ final class Raster implements Flag
 
     /**
      * Raster constructor
-     * @param int $siteId
      * @param Language $language
      * @param string $url
      */
-    public function __construct(int $siteId, Language $language, string $url)
+    public function __construct(Language $language, string $url)
     {
-        $this->siteId = $siteId;
         $this->language = $language;
         $this->url = $url;
     }

@@ -12,8 +12,6 @@ declare(strict_types=1);
 
 namespace Inpsyde\MultilingualPress\Flags\Flag;
 
-use Inpsyde\MultilingualPress\Framework\Language\Language;
-
 /**
  * Class Svg
  *
@@ -22,30 +20,16 @@ use Inpsyde\MultilingualPress\Framework\Language\Language;
 final class Svg implements Flag
 {
     /**
-     * @var int
-     */
-    private $siteId;
-
-    /**
-     * @var Language
-     */
-    private $language;
-
-    /**
      * @var string
      */
     private $url;
 
     /**
      * Svg constructor
-     * @param int $siteId
-     * @param Language $language
      * @param string $url
      */
-    public function __construct(int $siteId, Language $language, string $url)
+    public function __construct(string $url)
     {
-        $this->siteId = $siteId;
-        $this->language = $language;
         $this->url = $url;
     }
 
