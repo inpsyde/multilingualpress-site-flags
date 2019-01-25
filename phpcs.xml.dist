@@ -14,7 +14,7 @@
             <property
                     name="psr4"
                     type="array"
-                    value="Inpsyde\MultilingualPress=>src,Inpsyde\MultilingualPress\Tests\Unit=>tests/php/unit"/>
+                    value="Inpsyde\MultilingualPress\Flags=>src,Inpsyde\MultilingualPress\Tests\Unit=>tests/php/unit"/>
             <property
                 name="exclude"
                 type="array"
