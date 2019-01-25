@@ -68,7 +68,7 @@ final class SiteMenuLanguageStyleSetting implements SiteSettingViewModel
     {
         return sprintf(
             '<label for="%2$s">%1$s</label>',
-            esc_html__('Menu Language Style', 'multilingualpress'),
+            esc_html__('Menu Language Style', 'multilingualpress-site-flags'),
             esc_attr($this->id)
         );
     }
@@ -79,9 +79,9 @@ final class SiteMenuLanguageStyleSetting implements SiteSettingViewModel
     private static function options(): array
     {
         return [
-            self::FLAG_AND_LANGUAGES => __('Flags and Languages', 'multilingualpress'),
-            self::ONLY_FLAGS => __('Only Flags', 'multilingualpress'),
-            self::ONLY_LANGUAGES => __('Only Languages', 'multilingualpress'),
+            self::FLAG_AND_LANGUAGES => __('Flags and Languages', 'multilingualpress-site-flags'),
+            self::ONLY_FLAGS => __('Only Flags', 'multilingualpress-site-flags'),
+            self::ONLY_LANGUAGES => __('Only Languages', 'multilingualpress-site-flags'),
         ];
     }
 }

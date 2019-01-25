@@ -1,3 +1,7 @@
+= X.X.X - XX/XX/XX =
+
+* Fix: Wrong textdomain for plugin. Use `multilingualpress-site-flags`
+
 = 1.1.1 - 19/01/25 =
 
 * Fix: Prevent fatal error if MultilingualPress isn't installed

@@ -15,7 +15,7 @@
  * Author: Inpsyde GmbH
  * Author URI: https://inpsyde.com
  * Version: 1.1.1
- * Text Domain: multilingualpress
+ * Text Domain: multilingualpress-site-flags
  * Domain Path: /languages/
  * License: MIT
  * Network: true
@@ -98,14 +98,14 @@ defined('ABSPATH') or die();
         deactivateNotice(function () {
             $message = __(
                 'MultilingualPress Flags requires at least PHP version 7. <br />Please ask your server administrator to update your environment to PHP version 7.',
-                'multilingualpress'
+                'multilingualpress-site-flags'
             );
 
             printf(
                 '<div class="notice notice-error"><span class="notice-title">%1$s</span><p>%2$s</p></div>',
                 esc_html__(
                     'The plugin MultilingualPress Flags has been deactivated',
-                    'multilingualpress'
+                    'multilingualpress-site-flags'
                 ),
                 wp_kses($message, ['br' => true])
             );
@@ -119,14 +119,14 @@ defined('ABSPATH') or die();
         deactivateNotice(function () {
             $message = __(
                 'You tried to activate MultilingualPress Site Flags but MultilingualPress plugin isn\'t active.',
-                'multilingualpress'
+                'multilingualpress-site-flags'
             );
 
             printf(
                 '<div class="notice notice-error"><span class="notice-title">%1$s</span><p>%2$s</p></div>',
                 esc_html__(
                     'The plugin MultilingualPress Site Flags has been deactivated',
-                    'multilingualpress'
+                    'multilingualpress-site-flags'
                 ),
                 wp_kses($message, ['a' => ['href' => true]])
             );

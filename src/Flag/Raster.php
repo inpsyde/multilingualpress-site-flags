@@ -56,7 +56,7 @@ final class Raster implements Flag
     public function markup(): string
     {
         $alt = sprintf(
-            __('%s language flag', 'multilingualpress'),
+            __('%s language flag', 'multilingualpress-site-flags'),
             $this->language->nativeName()
         );
 

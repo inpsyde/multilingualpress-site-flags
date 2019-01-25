@@ -5,7 +5,7 @@ use Leafo\ScssPhp;
 /** @noinspection PhpUndefinedClassInspection */
 class RoboFile extends Robo\Tasks
 {
-    const DOMAIN = 'multilingualpress';
+    const DOMAIN = 'multilingualpress-site-flags';
     const LANG_PATH = 'languages';
 
     const DEFAULT_OPTS = [
