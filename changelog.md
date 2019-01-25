@@ -1,3 +1,7 @@
+= 1.1.1 - 19/01/25 =
+
+* Fix: Prevent fatal error if MultilingualPress isn't installed
+
 = 1.1.0 - 18/10/23 =
 
 * Add: Flags for post and terms table lists
