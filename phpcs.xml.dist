@@ -7,6 +7,7 @@
     <arg value="sp"/>
 
     <config name="text_domain" value="multilingualpress"/>
+    <config name="ignore_warnings_on_exit" value="1"/>
 
     <rule ref="Inpsyde"/>
     <rule ref="Inpsyde.CodeQuality.Psr4">
