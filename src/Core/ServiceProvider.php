@@ -43,7 +43,7 @@ final class ServiceProvider implements BootstrappableServiceProvider
 
         $container->shareValue(
             PluginProperties::class,
-            new PluginProperties(dirname(__DIR__))
+            new PluginProperties(WP_PLUGIN_DIR. '/multilingualpress-site-flags/multilingualpress-site-flags.php')
         );
     }
 
