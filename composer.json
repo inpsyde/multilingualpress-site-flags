@@ -1,5 +1,5 @@
 {
-    "name": "inpsyde/multilingualpress-language-flags",
+    "name": "inpsyde/multilingualpress-site-flags",
     "description": "Add flags feature to multilingualpress plugin",
     "type": "wordpress-plugin",
     "keywords": [
