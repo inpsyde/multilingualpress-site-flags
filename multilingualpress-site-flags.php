@@ -69,7 +69,7 @@ defined('ABSPATH') or die();
         if (is_bool($done)) {
             return $done;
         }
-        if (class_exists(Flag\Flag::class)) {
+        if (class_exists(Flag\ServiceProvider::class)) {
             $done = true;
 
             return true;
